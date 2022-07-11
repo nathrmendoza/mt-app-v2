@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
+  auth,
   googleSignIn,
+  googleSignInRedirect,
   facebookSignIn,
+  facebookSignInRedirect,
   signInWithEmailPassword
 } from '../../utils/firebase.utils'
+
+import { getRedirectResult } from 'firebase/auth'
+
+import { isMobile } from 'react-device-detect'
+
 
 const formDefaults = {
   email: '',
@@ -14,28 +22,47 @@ const SignInForm = () => {
   const [formInputs, setFormInputs] = useState(formDefaults)
   const {email, password} = formInputs
 
+  //mobile redirect sign in results
+  useEffect(() => {
+    if (!isMobile) return false
+
+    const getSignInRedirectResults = async () => {
+      const {user} = await getRedirectResult(auth)
+      console.log(user);
+    }
+
+    getSignInRedirectResults()
+    
+  }, [])
+
   const onChangeHandler = (event) => {
     const {name, value} = event.target;
     setFormInputs({...formInputs, [name]: value})
   }
 
   const signInWithGoogleHandler = async () => {
-    try {
-      const { user } = await googleSignIn()
-      console.log(user)
-
-    } catch(err) {
-      console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
+    if (isMobile) await googleSignInRedirect();
+    else {
+      try {
+        const { user } = await googleSignIn()
+        console.log(user)
+  
+      } catch(err) {
+        console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
+      }
     }
   }
 
   const signInWithFacebookHandler = async () => {
-    try {
-      const { user } = await facebookSignIn()
-      console.log(user)
-
-    } catch(err) {
-      console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
+    if (isMobile) await facebookSignInRedirect();
+    else {
+      try {
+        const { user } = await facebookSignIn()
+        console.log(user)
+  
+      } catch(err) {
+        console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
+      }
     }
   }
 
@@ -45,6 +72,8 @@ const SignInForm = () => {
     try {
       const {user} = await signInWithEmailPassword(email, password)
       console.log(user)
+      //RESET FORM
+      setFormInputs(formDefaults);
 
     } catch(err) {
         switch (err.code) {

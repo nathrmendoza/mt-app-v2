@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile
@@ -24,7 +25,7 @@ const app = initializeApp(firebaseConfig);
 
 //--------- START: AUTHENTICATON ----------//
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 //Providers
 const googleProvider = new GoogleAuthProvider();
@@ -34,11 +35,13 @@ const facebookProvider = new FacebookAuthProvider();
  * Sign in with google provider
  */
 export const googleSignIn = () => signInWithPopup(auth, googleProvider);
+export const googleSignInRedirect = () => signInWithRedirect(auth, googleProvider);
 
 /**
  * Sign in with facebook provider
  */
 export const facebookSignIn = () => signInWithPopup(auth, facebookProvider);
+export const facebookSignInRedirect = () => signInWithRedirect(auth, facebookProvider);
 
 /**
  * Sign in with email and password

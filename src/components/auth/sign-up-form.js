@@ -31,6 +31,8 @@ const SignUpForm = () => {
     try {
       const user = await signUpWithEmailPassword(email, password, name);
       console.log(user);
+      //RESET FORM
+      setFormInputs(formDefaults);
 
     } catch (err) {
       console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
