@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { 
   googleSignIn,
+  facebookSignIn,
   signInWithEmailPassword
 } from '../../utils/firebase.utils'
 
@@ -21,6 +22,16 @@ const SignInForm = () => {
   const signInWithGoogleHandler = async () => {
     try {
       const { user } = await googleSignIn()
+      console.log(user)
+
+    } catch(err) {
+      console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
+    }
+  }
+
+  const signInWithFacebookHandler = async () => {
+    try {
+      const { user } = await facebookSignIn()
       console.log(user)
 
     } catch(err) {
@@ -58,6 +69,7 @@ const SignInForm = () => {
         <button type='submit'>SIGN IN</button>
       </form>
       <button type='button' onClick={signInWithGoogleHandler}>SIGN IN WITH GOOGLE</button>
+      <button type='button' onClick={signInWithFacebookHandler}>SIGN IN WITH FACEBOOk</button>
     </div>
   )
 }
