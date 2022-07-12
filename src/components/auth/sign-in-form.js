@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { 
   auth,
   googleSignIn,
   googleSignInRedirect,
   facebookSignIn,
   facebookSignInRedirect,
-  signInWithEmailPassword
+  signInWithEmailPassword,
+  checkUserDocRefExists
 } from '../../utils/firebase.utils'
 
 import { getRedirectResult } from 'firebase/auth'
@@ -22,17 +24,18 @@ const SignInForm = () => {
   const [formInputs, setFormInputs] = useState(formDefaults)
   const {email, password} = formInputs
 
+  let navigate = useNavigate();
+
   //mobile redirect sign in results
   useEffect(() => {
-    if (!isMobile) return false
-
-    const getSignInRedirectResults = async () => {
-      const {user} = await getRedirectResult(auth)
-      console.log(user);
+    if (isMobile) {
+      const getSignInRedirectResults = async () => {
+        const {user} = await getRedirectResult(auth)
+        console.log(user);
+      }
+  
+      getSignInRedirectResults()
     }
-
-    getSignInRedirectResults()
-    
   }, [])
 
   const onChangeHandler = (event) => {
@@ -41,15 +44,15 @@ const SignInForm = () => {
   }
 
   const signInWithGoogleHandler = async () => {
+  
     if (isMobile) await googleSignInRedirect();
     else {
-      try {
-        const { user } = await googleSignIn()
-        console.log(user)
-  
-      } catch(err) {
-        console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
-      }
+      const { user } = await googleSignIn()
+      const checkUserDoc = await checkUserDocRefExists(user);
+
+      //context code here
+
+      navigateHook(checkUserDoc, user);
     }
   }
 
@@ -87,7 +90,13 @@ const SignInForm = () => {
             console.log(`Error Code: ${err.code}\nError Message: ${err.message}`);
         }
     }
+  }
 
+  const navigateHook = (exists, uid) => {
+    if (!exists)
+      navigate(`/setup-account`)
+    else 
+      navigate(`/${uid}`)
   }
 
   return (

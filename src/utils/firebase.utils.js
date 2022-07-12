@@ -1,4 +1,6 @@
 import {initializeApp} from 'firebase/app'
+
+//---AUTHENTICATION imports---//
 import {
   getAuth,
   GoogleAuthProvider,
@@ -9,6 +11,13 @@ import {
   signInWithEmailAndPassword,
   updateProfile
 } from 'firebase/auth'
+
+//---FIRESTORE imports---//
+import {
+  doc,
+  getDoc,
+  getFirestore
+} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -94,5 +103,19 @@ export const signUpWithEmailPassword = async (email, password, displayName) => {
 //     }
 //   ]
 // }
+
+export const db = getFirestore()
+
+//create user details document in users collection
+export const checkUserDocRefExists = async (user) => {
+  
+  if (!user) return
+
+  const userDocRef = doc(db, 'users', user.uid);
+  const userDocSnapshot = await getDoc(userDocRef);
+
+  return userDocSnapshot.exists()
+
+}
 
 //--------- END: FIRESTORE DB ----------//
