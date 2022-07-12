@@ -6,12 +6,17 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import './index.css';
 import App from './App';
 
+//context
+import AuthUserProvider from './context/auth-user.context';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <AuthUserProvider>
+        <App />
+      </AuthUserProvider>
     </Router>
   </React.StrictMode>
 );

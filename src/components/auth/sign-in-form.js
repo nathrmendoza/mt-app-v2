@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
   auth,
@@ -7,12 +7,14 @@ import {
   facebookSignIn,
   facebookSignInRedirect,
   signInWithEmailPassword,
-  checkUserDocRefExists
+  checkUserDocRefExists,
+  signOutUser
 } from '../../utils/firebase.utils'
 
 import { getRedirectResult } from 'firebase/auth'
 
 import { isMobile } from 'react-device-detect'
+import { AuthUserContext } from '../../context/auth-user.context'
 
 
 const formDefaults = {
@@ -24,19 +26,20 @@ const SignInForm = () => {
   const [formInputs, setFormInputs] = useState(formDefaults)
   const {email, password} = formInputs
 
-  let navigate = useNavigate();
+  const { currentUser } = useContext(AuthUserContext)
 
   //mobile redirect sign in results
-  useEffect(() => {
-    if (isMobile) {
-      const getSignInRedirectResults = async () => {
-        const {user} = await getRedirectResult(auth)
-        console.log(user);
-      }
   
-      getSignInRedirectResults()
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     const getSignInRedirectResults = async () => {
+  //       const {user} = await getRedirectResult(auth)
+  //       console.log(user);
+  //     }
+  
+  //     getSignInRedirectResults()
+  //   }
+  // }, [])
 
   const onChangeHandler = (event) => {
     const {name, value} = event.target;
@@ -48,24 +51,13 @@ const SignInForm = () => {
     if (isMobile) await googleSignInRedirect();
     else {
       const { user } = await googleSignIn()
-      const checkUserDoc = await checkUserDocRefExists(user);
-
-      //context code here
-
-      navigateHook(checkUserDoc, user);
     }
   }
 
   const signInWithFacebookHandler = async () => {
     if (isMobile) await facebookSignInRedirect();
     else {
-      try {
-        const { user } = await facebookSignIn()
-        console.log(user)
-  
-      } catch(err) {
-        console.log(`Error Code: ${err.code}\nError Message: ${err.message}`)
-      }
+      const { user } = await facebookSignIn()
     }
   }
 
@@ -74,7 +66,7 @@ const SignInForm = () => {
 
     try {
       const {user} = await signInWithEmailPassword(email, password)
-      console.log(user)
+
       //RESET FORM
       setFormInputs(formDefaults);
 
@@ -90,13 +82,6 @@ const SignInForm = () => {
             console.log(`Error Code: ${err.code}\nError Message: ${err.message}`);
         }
     }
-  }
-
-  const navigateHook = (exists, uid) => {
-    if (!exists)
-      navigate(`/setup-account`)
-    else 
-      navigate(`/${uid}`)
   }
 
   return (

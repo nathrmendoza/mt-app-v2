@@ -9,7 +9,9 @@ import {
   signInWithRedirect,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile
+  updateProfile,
+  onAuthStateChanged,
+  signOut
 } from 'firebase/auth'
 
 //---FIRESTORE imports---//
@@ -79,6 +81,10 @@ export const signUpWithEmailPassword = async (email, password, displayName) => {
 
   return user 
 }
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback) 
+
+export const signOutUser = async () => signOut(auth);
 
 //--------- END: AUTHENTICATON ----------//
 

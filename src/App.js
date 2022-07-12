@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import AuthenticationPage from './pages/AuthenticationPage'
 import SetupAccountPage from './pages/SetupAccountPage'
 import AccountPage from './pages/AccountPage'
+import Navigation from './components/navigation'
 
 function App() {
   
@@ -12,9 +13,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route index element={<AuthenticationPage/>}/>
-        <Route path='/setup-account' element={<SetupAccountPage/>}/>
-        <Route path='/:id' element={<AccountPage/>}/>
+        <Route path='/' element={<Navigation/>}>
+          <Route index element={<AuthenticationPage/>}/>
+          <Route path='/setup-account' element={<SetupAccountPage/>}/>
+          <Route path='/my-account' element={<AccountPage/>}/>
+        </Route>
       </Routes>
     </div>
   );
