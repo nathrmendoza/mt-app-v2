@@ -18,7 +18,8 @@ import {
 import {
   doc,
   getDoc,
-  getFirestore
+  getFirestore,
+  setDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -91,36 +92,31 @@ export const signOutUser = async () => signOut(auth);
 
 
 //--------- START: FIRESTORE DB ----------//
-// const userDataShape = {
-//   uid: '',
-//   displayName: '',
-//   monthlyGrossIncome: 0,
-//   dividers: [
-//     {
-//       name: '',
-//       percent: '',
-//       expenses: [
-//         {
-//           name: '',
-//           value: 0,
-//           reaccuring: false,
-//         }
-//       ]
-//     }
-//   ]
-// }
 
 export const db = getFirestore()
 
-//create user details document in users collection
 export const checkUserDocRefExists = async (user) => {
   
   if (!user) return
-
+  
   const userDocRef = doc(db, 'users', user.uid);
   const userDocSnapshot = await getDoc(userDocRef);
-
+  
   return userDocSnapshot.exists()
+  
+}
+
+//create user details document in users collection
+export const createUserDoc = async (user, options={}) => {
+  if (!user) return
+
+  const userDocRef = doc(db, 'users', user.uid);
+  const createdAt = new Date();
+  
+  return await setDoc(userDocRef, {
+    ...options,
+    createdAt
+  });
 
 }
 

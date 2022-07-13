@@ -23,7 +23,7 @@ const AuthenticationPage = () => {
 
     if (currentUser) ifSignedInRedirect()
     
-  }, [currentUser])
+  }, [currentUser, navigate])
 
   return (
     <div>
