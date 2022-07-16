@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import DividerItem from '../components/setup-page/divider-item'
 import { AuthUserContext } from '../context/auth-user.context'
 import { createUserDoc } from '../utils/firebase.utils'
@@ -42,16 +43,19 @@ const EXPENSES_DEFAULT = {
 const SetupAccountPage = () => {
 
   const [userData, setUserData] = useState(USER_DATA_DEFAULT)
+  const { currentUser, userDb } = useContext(AuthUserContext)
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userData);
-  }, [userData])
+    //failsafe to redirect to account page if user exists
+    if (userDb)
+      navigate('/my-account')
+  }, [userDb, navigate])
 
   const onChangeHandler = event => {
-    console.log(event.target)
     const {name, value} = event.target
     setUserData({...userData, [name]: value})
-    console.log(userData);
   }
 
   const onChangeDividerHandler = event => {
@@ -68,7 +72,6 @@ const SetupAccountPage = () => {
       });
       return {...prevState, dividers: tempDividers}
     })
-    console.log(userData);
   }
 
   const addDivider = () => {
@@ -145,14 +148,26 @@ const SetupAccountPage = () => {
     setUserData({...userData, dividers: tempDividers})
   }
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await createUserDoc(currentUser, userData)
+      navigate('/my-account')
+    } 
+    catch(err) {
+      console.log(`Error code: ${err.code}\nError message: ${err.message}`)
+    }
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <input name='displayName' value={userData.displayName} type='text' onChange={onChangeHandler} placeholder='Enter name'/>
         <input name='monthlyGrossIncome' value={userData.monthlyGrossIncome} type='number' onChange={onChangeHandler} placeholder='Enter monthly gross income'/>
         <br/><br/>
         <button type='button' onClick={addDivider}>ADD DIVIDER</button>
         {userData.dividers.map(item => <DividerItem key={item.id} item={item} checkLength={userData.dividers.length <= 1} onChangeDividerHandler={onChangeDividerHandler} removeDividerHandler={removeDivider} expenseHandler={onChangeExpensesHandler} addExpenseHandler={addExpense} removeExpenseHandler={removeExpense}/>)}
+        <button type='submit'>SUBMIT</button>
       </form>
     </div>
   )

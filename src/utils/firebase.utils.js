@@ -120,4 +120,16 @@ export const createUserDoc = async (user, options={}) => {
 
 }
 
+
+export const getUserDoc = async (user) => {
+  
+  if (!user) return
+  
+  const userDocRef = doc(db, 'users', user.uid);
+  const userDocSnapshot = await getDoc(userDocRef);
+  
+  return userDocSnapshot.data()
+  
+}
+
 //--------- END: FIRESTORE DB ----------//

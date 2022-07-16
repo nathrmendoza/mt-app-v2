@@ -1,24 +1,32 @@
 import { createContext, useEffect, useState } from 'react'
-import { onAuthStateChangedListener } from '../utils/firebase.utils'
+import { onAuthStateChangedListener, getUserDoc } from '../utils/firebase.utils'
 
 export const AuthUserContext = createContext({
   currentUser: null,
-  setCurrentUser: () => {}
+  setCurrentUser: () => {},
+  userDb: null,
+  setUserDb: () => {} 
 })
 
 const AuthUserProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState(null)
-  const value = {currentUser, setCurrentUser}
+  const [userDb, setUserDb] = useState(null)
+  const value = {currentUser, setCurrentUser, userDb, setUserDb}
 
   useEffect(() => {
 
     const listener = onAuthStateChangedListener(async user => {
-      console.log(user);
       
-      if (user) 
+      if (user) {
         setCurrentUser(user);
-      else
+        //get user data
+        const response = await getUserDoc(user);
+        setUserDb(response);
+      }
+      else {
         setCurrentUser(null);
+        setUserDb(null);
+      }
     })
 
     return listener
