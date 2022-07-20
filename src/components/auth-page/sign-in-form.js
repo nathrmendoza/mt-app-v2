@@ -6,9 +6,10 @@ import {
   facebookSignInRedirect,
   signInWithEmailPassword
 } from '../../utils/firebase.utils'
-
 import { isMobile } from 'react-device-detect'
 
+import Button from '../button'
+import Input from '../input'
 
 const formDefaults = {
   email: '',
@@ -61,12 +62,12 @@ const SignInForm = () => {
   return (
     <div>
       <form onSubmit={signInWithEmailPasswordHandler}>
-        <input type='email' name='email' value={email} onChange={onChangeHandler} placeholder='Enter email'/>
-        <input type='password' name='password' value={password} onChange={onChangeHandler} placeholder='Enter password'/>
-        <button type='submit'>SIGN IN</button>
+        <Input type='email' name='email' value={email} onChange={onChangeHandler} label='Email'/>
+        <Input type='password' name='password' value={password} onChange={onChangeHandler} label='Password'/>
+        <Button type='submit'>Sign In</Button>
       </form>
-      <button type='button' onClick={signInWithGoogleHandler}>SIGN IN WITH GOOGLE</button>
-      <button type='button' onClick={signInWithFacebookHandler}>SIGN IN WITH FACEBOOk</button>
+      <Button type='button' buttonType='google' onClick={signInWithGoogleHandler}>Google Sign In</Button>
+      <Button type='button' buttonType='facebook' onClick={signInWithFacebookHandler}>Facebook Sign In</Button>
     </div>
   )
 }

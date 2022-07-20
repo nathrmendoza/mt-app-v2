@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import SignInForm from '../components/auth/sign-in-form';
-import SignUpForm from '../components/auth/sign-up-form';
+import SignInForm from '../components/auth-page/sign-in-form';
+import SignUpForm from '../components/auth-page/sign-up-form';
 
 import { AuthUserContext } from '../context/auth-user.context';
 import { checkUserDocRefExists } from '../utils/firebase.utils';
@@ -27,10 +27,12 @@ const AuthenticationPage = () => {
 
   return (
     <div>
-        <h4>Sign in</h4>
+        <h2>Sign in</h2>
+        <p>Welcome back!</p>
         <SignInForm/>
 
-        <h4>Don't have an account? Sign up here.</h4>
+        <h2>Sign up</h2>
+        <p>It's quick and easy.</p>
         <SignUpForm/>
     </div>
   )

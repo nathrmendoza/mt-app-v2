@@ -3,6 +3,9 @@ import {
   signUpWithEmailPassword
 } from '../../utils/firebase.utils'
 
+import Button from '../button'
+import Input from '../input'
+
 const formDefaults = {
   name: '',
   email: '',
@@ -51,11 +54,12 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={onSignUpSubmitHandler}>
-      <input type='text' onChange={onInputChangeHandler} name='name' value={name} placeholder='Enter your name'/>
-      <input type='email' onChange={onInputChangeHandler} name='email' value={email} placeholder='Enter your email'/>
-      <input type='password' onChange={onInputChangeHandler} name='password' value={password} placeholder='Enter your password' />
-      <input type='password' onChange={onInputChangeHandler} name='confirmPassword' value={confirmPassword} placeholder='Confirm your password' />
-      <button type='submit'>SIGN UP</button>
+      <Input type='text' onChange={onInputChangeHandler} name='name' value={name} label='Your Name'/>
+      <Input type='email' onChange={onInputChangeHandler} name='email' value={email} label='Your Email'/>
+      <Input type='password' onChange={onInputChangeHandler} name='password' value={password} label='Set Your Password'/>
+      <Input type='password' onChange={onInputChangeHandler} name='confirmPassword' value={confirmPassword} label='Confirm Your Password'/>
+
+      <Button type='submit'>Sign Up</Button>
     </form>
   )
 }
