@@ -5,6 +5,7 @@ import SignInForm from '../components/auth-page/sign-in-form';
 import SignUpForm from '../components/auth-page/sign-up-form';
 
 import { AuthUserContext } from '../context/auth-user.context';
+import { Heading4, Paragraph } from '../styles/typography.style';
 import { checkUserDocRefExists } from '../utils/firebase.utils';
 
 const AuthenticationPage = () => {
@@ -27,12 +28,12 @@ const AuthenticationPage = () => {
 
   return (
     <div>
-        <h2>Sign in</h2>
-        <p>Welcome back!</p>
+        <Heading4>Sign in</Heading4>
+        <Paragraph>Welcome back!</Paragraph>
         <SignInForm/>
 
-        <h2>Sign up</h2>
-        <p>It's quick and easy.</p>
+        <Heading4>Sign up</Heading4>
+        <Paragraph>It's quick and easy.</Paragraph>
         <SignUpForm/>
     </div>
   )
