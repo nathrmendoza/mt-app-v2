@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { TwoColContainer } from '../../styles/pages/authenticationpage.style'
 import {
   signUpWithEmailPassword
 } from '../../utils/firebase.utils'
+
+import { SubmitContainer } from '../../styles/pages/authenticationpage.style'
 
 import Button from '../button'
 import Input from '../input'
@@ -54,12 +57,16 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={onSignUpSubmitHandler}>
-      <Input type='text' onChange={onInputChangeHandler} name='name' value={name} label='Your Name'/>
-      <Input type='email' onChange={onInputChangeHandler} name='email' value={email} label='Your Email'/>
-      <Input type='password' onChange={onInputChangeHandler} name='password' value={password} label='Set Your Password'/>
-      <Input type='password' onChange={onInputChangeHandler} name='confirmPassword' value={confirmPassword} label='Confirm Your Password'/>
+      <TwoColContainer>
+        <Input type='text' onChange={onInputChangeHandler} name='name' value={name} label='Your Name'/>
+        <Input type='email' onChange={onInputChangeHandler} name='email' value={email} label='Your Email'/>
+        <Input type='password' onChange={onInputChangeHandler} name='password' value={password} label='Set Your Password'/>
+        <Input type='password' onChange={onInputChangeHandler} name='confirmPassword' value={confirmPassword} label='Confirm Your Password'/>
+      </TwoColContainer>
 
-      <Button type='submit'>Sign Up</Button>
+      <SubmitContainer>
+        <Button type='submit' buttonType='secondary'>Sign Up</Button>
+      </SubmitContainer>
     </form>
   )
 }

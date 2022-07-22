@@ -6,10 +6,11 @@ export const FormInput = styled.input`
   border-radius: 30px;
   padding: 10px 24px 10px 16px;
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   color: #5c5c5c;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 2px solid rgb(51 65 85);
   box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.15) inset;
+  margin-bottom: 10px;
   
   &::placeholder {
     color: #a6a6a6;

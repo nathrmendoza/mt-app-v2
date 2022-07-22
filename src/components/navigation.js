@@ -5,6 +5,8 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../context/auth-user.context'
 import { signOutUser } from '../utils/firebase.utils'
 
+import { Header } from '../styles/header.style'
+
 const Navigation = () => {
   const {currentUser} = useContext(AuthUserContext)
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <div>
+      <Header>
         {currentUser &&
           <Fragment>
           <button type='button' onClick={signOutHandler}>SIGN OUT</button>
@@ -25,7 +27,7 @@ const Navigation = () => {
           </div>
           </Fragment>
         }
-      </div>
+      </Header>
       <Outlet/>
     </Fragment>
   )

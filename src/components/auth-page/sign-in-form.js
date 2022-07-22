@@ -8,8 +8,11 @@ import {
 } from '../../utils/firebase.utils'
 import { isMobile } from 'react-device-detect'
 
+import { BsGoogle, BsFacebook } from 'react-icons/bs'
+
 import Button from '../button'
 import Input from '../input'
+import { TwoColContainer, SignInDivider, ButtonsContainer, SubmitContainer } from '../../styles/pages/authenticationpage.style'
 
 const formDefaults = {
   email: '',
@@ -62,12 +65,21 @@ const SignInForm = () => {
   return (
     <div>
       <form onSubmit={signInWithEmailPasswordHandler}>
-        <Input type='email' name='email' value={email} onChange={onChangeHandler} label='Email'/>
-        <Input type='password' name='password' value={password} onChange={onChangeHandler} label='Password'/>
-        <Button type='submit'>Sign In</Button>
+        <TwoColContainer>
+          <Input type='email' name='email' value={email} onChange={onChangeHandler} label='Email'/>
+          <Input type='password' name='password' value={password} onChange={onChangeHandler} label='Password'/>
+        </TwoColContainer>
+        <SubmitContainer>  
+          <Button type='submit' buttonType='secondary'>Sign In</Button>
+        </SubmitContainer>
       </form>
-      <Button type='button' buttonType='google' onClick={signInWithGoogleHandler}>Google Sign In</Button>
-      <Button type='button' buttonType='facebook' onClick={signInWithFacebookHandler}>Facebook Sign In</Button>
+
+      <SignInDivider>Or sign in via</SignInDivider>
+      
+      <ButtonsContainer>
+        <Button type='button' buttonType='hasicon' width="180px" onClick={signInWithGoogleHandler}><BsGoogle/>Google Account</Button>
+        <Button type='button' buttonType='hasicon' width="180px" onClick={signInWithFacebookHandler}><BsFacebook/>Facebook Account</Button>
+      </ButtonsContainer>
     </div>
   )
 }
