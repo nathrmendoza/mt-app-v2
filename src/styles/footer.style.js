@@ -5,7 +5,7 @@ export const FooterContainer = styled.footer`
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 0 20px 20px;
+  padding: 16px 20px 20px;
   text-align: center;
 
   @media (max-width: 480px) {
@@ -47,7 +47,7 @@ export const ByLine = styled.span`
   }
 `
 
-export const Anchor = styled.a`
+export const CustomAnchor = styled.a`
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   font-size: 14px; 
   line-height: 20px;

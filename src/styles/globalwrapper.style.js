@@ -9,7 +9,7 @@ export const GlobalWrapper = styled.div`
 
 export const InnerWrapper = styled.div`
   width: 100%;
-  height: calc(100% - 96px);
+  height: calc(100% - 112px);
   padding: 0 20px;
   display: flex;
   align-items: center;

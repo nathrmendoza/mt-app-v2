@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TwoColContainer } from '../../styles/pages/authenticationpage.style'
+import { LineDivider, TermsPolicy, TwoColContainer } from '../../styles/pages/authenticationpage.style'
 import {
   signUpWithEmailPassword
 } from '../../utils/firebase.utils'
@@ -8,6 +8,7 @@ import { SubmitContainer } from '../../styles/pages/authenticationpage.style'
 
 import Button from '../button'
 import Input from '../input'
+import { Anchor } from '../../styles/typography.style'
 
 const formDefaults = {
   name: '',
@@ -65,8 +66,11 @@ const SignUpForm = () => {
       </TwoColContainer>
 
       <SubmitContainer>
-        <Button type='submit' buttonType='secondary'>Sign Up</Button>
+        <Button type='submit' >Sign Up</Button>
       </SubmitContainer>
+
+      <LineDivider/>
+      <TermsPolicy>By signing up you agree to our <Anchor href="#" target="_self">terms of use</Anchor> and <Anchor href="#" target="_self">privacy policy</Anchor>.</TermsPolicy>
     </form>
   )
 }

@@ -70,7 +70,7 @@ const SignInForm = () => {
           <Input type='password' name='password' value={password} onChange={onChangeHandler} label='Password'/>
         </TwoColContainer>
         <SubmitContainer>  
-          <Button type='submit' buttonType='secondary'>Sign In</Button>
+          <Button type='submit'>Sign In</Button>
         </SubmitContainer>
       </form>
 

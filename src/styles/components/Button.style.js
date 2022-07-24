@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ThemeColors } from "../colors.style";
 
 export const MainButton = styled.button`
   display: inline-block;
@@ -25,10 +26,10 @@ export const ButtonShadow = styled.span`
   width: 100%;
   height: 100%;
   border-radius: 6px;
-  background: rgb(30 41 59);
+  background: ${ThemeColors.mShadColor};
 
   ${props => props.buttonType === 'default' && css`
-    background: rgb(30 41 59);
+    background: ${ThemeColors.mShadColor};
   `}
 
   ${props => props.buttonType === 'secondary' && css`
@@ -64,14 +65,14 @@ export const ButtonAbove = styled.span`
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   font-weight: 600;
   min-width: 100%;
-  background: rgb(51 65 85);
+  background: ${ThemeColors.mainColor};
 
   &:hover {
     transform: translateY(0px);
   }
 
   ${props => props.buttonType === 'default' && css`
-    background: rgb(51 65 85);
+    background: ${ThemeColors.mainColor};
   `}
   
   ${props => props.buttonType === 'secondary' && css`

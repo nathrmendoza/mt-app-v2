@@ -6,13 +6,14 @@ import SignUpForm from '../components/auth-page/sign-up-form';
 
 import { AuthUserContext } from '../context/auth-user.context';
 import { InnerWrapper } from '../styles/globalwrapper.style';
-import { Container, CustomHeading, CustomParagraph } from '../styles/pages/authenticationpage.style';
+import { Container, CustomHeading, CustomParagraph, LogoContainer, CustomToggle, LogoText } from '../styles/pages/authenticationpage.style';
 import { checkUserDocRefExists } from '../utils/firebase.utils';
-
-import { CustomToggle } from '../styles/pages/authenticationpage.style';
 
 import {motion} from 'framer-motion'
 import { useState } from 'react';
+
+import logo from '../assets/MT-AppLogo.png'
+import { defaultVariant } from '../utils/framerMotionAnims/routesAnimations';
 
 const AuthenticationPage = () => {
   const { currentUser } = useContext(AuthUserContext)
@@ -36,11 +37,16 @@ const AuthenticationPage = () => {
   const signStateToggle = () => setSignState(!signState);
 
   return (
-    <InnerWrapper>
-      <Container as={motion.div} 
-        initial={{opacity: 0, filter: 'blur(5px)'}} 
-        animate={{opacity: 1, filter: 'blur(0px)'}} 
-        transition={{delay: 1, duration: 0.8}}>
+    <InnerWrapper as={motion.div}
+      variants={defaultVariant}
+      initial="hidden"
+      animate="visible"
+      exit="exit" >
+      <Container>
+        <LogoContainer>
+          <img src={logo} width="128" height="auto" alt="MT App Logo"/>
+          <LogoText>The Finance tracker for frugal people.</LogoText>
+        </LogoContainer>
 
         {!signState && 
         <Fragment>

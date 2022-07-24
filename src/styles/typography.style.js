@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ThemeColors } from "./colors.style";
 
 let defaultFont = "'Montserrat', Helvetica, Arial, sans-serif";
 
@@ -28,4 +29,10 @@ export const Li = styled.li`
 `
 export const Label = styled.label`
   font: 400 16px/24px ${defaultFont};
+`
+
+export const Anchor = styled.a`
+  color: ${ThemeColors.anchorColor};
+  text-decoration: underline;
+  font-weight: 600;
 `

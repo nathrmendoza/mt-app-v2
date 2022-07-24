@@ -1,4 +1,5 @@
 import styled, {css} from "styled-components";
+import { ThemeColors } from "../colors.style";
 
 export const FormInput = styled.input`
   display: inline-block;
@@ -8,7 +9,7 @@ export const FormInput = styled.input`
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   font-weight: 600;
   color: #5c5c5c;
-  border: 2px solid rgb(51 65 85);
+  border: 2px solid ${ThemeColors.offWhite};
   box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.15) inset;
   margin-bottom: 10px;
   

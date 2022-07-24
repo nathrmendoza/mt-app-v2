@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { ThemeColors } from "../colors.style";
 import { Heading4, Paragraph } from "../typography.style";
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 478px;
-  min-height: 380px;
-  padding: 42px 24px;
+  max-width: 481px;
+  min-height: 491px;
+  padding: 20px 24px 42px;
   border-radius: 10px;
   border: 1px solid rgb(58,58,58, 0.15);
   box-shadow: rgba(58,58,58,0.25) 0px 4px 10px 0px; 
@@ -98,4 +99,24 @@ export const CustomToggle = styled.span`
   &:hover {
     opacity: 0.75;
   }
+`
+
+export const LogoContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+`
+
+export const LogoText = styled(Paragraph)`
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic;
+  font-weight: 500;
+  color: ${ThemeColors.lightGray}
+`
+
+export const TermsPolicy = styled(Paragraph)`
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
 `
