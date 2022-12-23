@@ -1,4 +1,5 @@
 import styled, {css} from "styled-components";
+import Button from "../../components/button";
 import { ThemeColors } from "../colors.style";
 import { Label } from "../typography.style";
 import { TwoColContainer } from "./authenticationpage.style";
@@ -17,30 +18,6 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-
-  /* width */
-  &::-webkit-scrollbar {
-    width: 8px;
-    border-radius: 10px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: ${ThemeColors.offWhite};
-    border-radius: 10px;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: ${ThemeColors.lighterGray};
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: ${ThemeColors.lighterGray};
-  }
 `
 export const CustomTwoColContainer = styled(TwoColContainer)`
   margin-top: 12px;
@@ -49,4 +26,29 @@ export const CustomTwoColContainer = styled(TwoColContainer)`
 export const CustomLabel = styled(Label)`
   font-weight: 600;
   display: inline-block;
+`
+
+export const CustomForm = styled.form`
+  position: relative;
+  width: 100%;
+  height: calc(100% - 60px);
+  padding-bottom: 52px;
+`
+
+export const CustomSubmit = styled(Button)`
+  position: absolute;
+  bottom: 0;
+  right:0;
+`
+
+export const FormOverflowWrapper = styled.div`
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+`
+
+export const AddDividerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px 0 0
 `

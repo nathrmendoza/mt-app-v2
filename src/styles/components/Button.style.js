@@ -10,6 +10,11 @@ export const MainButton = styled.button`
   padding-top: 5px;
   background: transparent;
   min-width: ${props => props.width ? props.width : '96px'};
+
+  ${props => props.disabled && css`
+    opacity: 0.5;
+    pointer-events: none;
+  `}
 `
 
 export const Wrapper = styled.div`
@@ -28,6 +33,10 @@ export const ButtonShadow = styled.span`
   border-radius: 6px;
   background: ${ThemeColors.mShadColor};
 
+  ${props => props.buttonType === 'removeDivider' && css`
+    border-radius: 50%;
+    background: rgb(192,34,18);
+  `}
   ${props => props.buttonType === 'default' && css`
     background: ${ThemeColors.mShadColor};
   `}
@@ -52,6 +61,10 @@ export const ButtonShadow = styled.span`
     background: rgb(56, 80, 133);
   `}
 
+  ${props => props.buttonType === 'redHasIcon' && css`
+    background: rgb(192,34,18);
+  `}
+
 `
 
 
@@ -71,6 +84,17 @@ export const ButtonAbove = styled.span`
     transform: translateY(0px);
   }
 
+  ${props => props.buttonType === 'removeDivider' && css`
+    border-radius: 50%;
+    padding: 9px 11px 7px;
+    background: rgb(217, 73, 63);
+
+    svg {
+      color: #FFFFFF;
+      width: 18px;
+      font-size: 18px;
+    }
+  `}
   ${props => props.buttonType === 'default' && css`
     background: ${ThemeColors.mainColor};
   `}
@@ -87,6 +111,18 @@ export const ButtonAbove = styled.span`
 
   ${props => props.buttonType === 'red' && css`
     background: rgb(217, 73, 63);
+  `}
+
+  ${props => props.buttonType === 'redHasIcon' && css`
+    background: rgb(217, 73, 63);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      margin-right: 5px;
+      font-size: 12px;
+      width: 12px;
+    }
   `}
 
   ${props => props.buttonType === 'google' && css`

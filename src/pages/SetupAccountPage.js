@@ -7,10 +7,12 @@ import { createUserDoc } from '../utils/firebase.utils'
 import {motion} from 'framer-motion'
 import { noDelayVariant } from '../utils/framerMotionAnims/routesAnimations'
 import { InnerWrapper } from '../styles/globalwrapper.style'
-import { Container, CustomLabel, CustomTwoColContainer, Wrapper } from '../styles/pages/setuppage.style'
+
+import { AddDividerContainer, Container, CustomForm, CustomLabel, CustomSubmit, CustomTwoColContainer, FormOverflowWrapper, Wrapper } from '../styles/pages/setuppage.style'
 import { Heading3, Heading4 } from '../styles/typography.style'
 import Input from '../components/input'
 import { LineDivider } from '../styles/pages/authenticationpage.style'
+import Button from '../components/button'
 
 const USER_DATA_DEFAULT = {
   displayName: '',
@@ -176,25 +178,31 @@ const SetupAccountPage = () => {
         <Container>
           <Wrapper>
             <Heading3>Let's set things up</Heading3>
-            <form onSubmit={onSubmitHandler}>
-              <CustomTwoColContainer>
-                <div>
-                  <CustomLabel for="displayName">What should we call you?</CustomLabel>
-                  <Input width="100%" name='displayName' id="displayName" value={userData.displayName} type='text' onChange={onChangeHandler} label='Enter name'/>
-                </div>  
-                <div>
-                  <CustomLabel for="monthlyGrossIncome">Monthly Gross Income?</CustomLabel>
-                  <Input width="100%" name='monthlyGrossIncome' id="monthlyGrossIncome" value={userData.monthlyGrossIncome} type='number' onChange={onChangeHandler} label='Enter monthly gross income'/>
-                </div>
-              </CustomTwoColContainer>
+            <CustomForm onSubmit={onSubmitHandler}>
+              <FormOverflowWrapper>
+                <CustomTwoColContainer>
+                  <div>
+                    <CustomLabel htmlFor="displayName">What should we call you?</CustomLabel>
+                    <Input width="100%" required name='displayName' id="displayName" value={userData.displayName} type='text' onChange={onChangeHandler} label='Enter name'/>
+                  </div>  
+                  <div>
+                    <CustomLabel htmlFor="monthlyGrossIncome">Monthly Gross Income?</CustomLabel>
+                    <Input width="100%" required name='monthlyGrossIncome' id="monthlyGrossIncome" value={userData.monthlyGrossIncome} type='number' onChange={onChangeHandler} label='Enter monthly gross income'/>
+                  </div>
+                </CustomTwoColContainer>
 
-              <LineDivider/>
+                <LineDivider/>
 
-              <Heading4>Your Dividers</Heading4>
-              <button type='button' onClick={addDivider}>ADD DIVIDER</button>
-              {userData.dividers.map(item => <DividerItem key={item.id} item={item} checkLength={userData.dividers.length <= 1} onChangeDividerHandler={onChangeDividerHandler} removeDividerHandler={removeDivider} expenseHandler={onChangeExpensesHandler} addExpenseHandler={addExpense} removeExpenseHandler={removeExpense}/>)}
-              <button type='submit'>SUBMIT</button>
-            </form>
+                <Heading4>Your Dividers</Heading4>
+                {userData.dividers.map(item => <DividerItem key={item.id} item={item} checkLength={userData.dividers.length <= 1} onChangeDividerHandler={onChangeDividerHandler} removeDividerHandler={removeDivider} expenseHandler={onChangeExpensesHandler} addExpenseHandler={addExpense} removeExpenseHandler={removeExpense}/>)}
+
+                <AddDividerContainer>
+                  <Button type='button' onClick={addDivider}>+ Add Divider</Button>
+                </AddDividerContainer>
+                
+                <CustomSubmit type='submit'>Save Profile</CustomSubmit>
+              </FormOverflowWrapper>
+            </CustomForm>
           </Wrapper>
         </Container>
     </InnerWrapper>
